@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement, createIdGenerator} from './util.js';
+import {getRandomInteger, getRandomArrayElement} from './util.js';
 
 const DESCRIPTION = [
   'Прекраный день!',
@@ -31,28 +31,24 @@ const NAMES = [
 
 const PHOTO_COUNT = 25;
 
-const generatePhotoId = createIdGenerator();
-const generateCommentId = createIdGenerator();
-const generateUrlId = createIdGenerator();
-
 const createMessege = () => getRandomInteger(0, 1)
   ? getRandomArrayElement(MESSAGE)
   : `${getRandomArrayElement(MESSAGE)} ${getRandomArrayElement(MESSAGE)}`;
 
-const createComment = () => ({
-  id: generateCommentId(),
+const createComment = (id) => ({
+  id: id,
   avatar: `img/avatar-/${getRandomInteger(1, 6)}.svg`,
   message: createMessege(),
   name: getRandomArrayElement(NAMES)
 });
 
-const createDescriptionPhoto = () => ({
-  id: generatePhotoId(),
-  url: `photos/${generateUrlId()}.jpg`,
+const createDescriptionPhoto = (id) => ({
+  id: id,
+  url: `photos/${id}.jpg`,
   description: getRandomArrayElement(DESCRIPTION),
   likes: getRandomInteger(15, 200),
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
 
-const descriptionPhoto = () => Array.from({length: PHOTO_COUNT}, createDescriptionPhoto);
+const descriptionPhoto = () => Array.from({length: PHOTO_COUNT}, (_, index) => createDescriptionPhoto(index + 1));
 export {descriptionPhoto};

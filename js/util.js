@@ -6,15 +6,6 @@ function getRandomInteger (min, max) {
   return Math.floor(result);
 }
 
-function createIdGenerator () {
-  let lastGeneratedId = 0;
-
-  return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
-  };
-}
-
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator};
+export {getRandomInteger, getRandomArrayElement};
