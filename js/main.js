@@ -1,2 +1,3 @@
 import {descriptionPhoto} from './data.js';
-descriptionPhoto();
+import {createThumbnails} from './thumbnails.js';
+createThumbnails(descriptionPhoto());
