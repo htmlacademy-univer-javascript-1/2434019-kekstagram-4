@@ -1,3 +1,4 @@
-import {descriptionPhoto} from './data.js';
-import {createThumbnails} from './thumbnails.js';
-createThumbnails(descriptionPhoto());
+import {descriptionPhotos} from './data.js';
+import {renderGallery} from './gallery.js';
+
+renderGallery(descriptionPhotos());
