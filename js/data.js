@@ -37,7 +37,7 @@ const createMessege = () => getRandomInteger(0, 1)
 
 const createComment = (id) => ({
   id: id,
-  avatar: `img/avatar-/${getRandomInteger(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: createMessege(),
   name: getRandomArrayElement(NAMES)
 });
@@ -50,5 +50,5 @@ const createDescriptionPhoto = (id) => ({
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
 
-const descriptionPhoto = () => Array.from({length: PHOTO_COUNT}, (_, index) => createDescriptionPhoto(index + 1));
-export {descriptionPhoto};
+const descriptionPhotos = () => Array.from({length: PHOTO_COUNT}, (_, index) => createDescriptionPhoto(index + 1));
+export {descriptionPhotos};
