@@ -17,4 +17,4 @@ const renderGallery = (pictures) => {
   createThumbnails(pictures, container);
 };
 
-export { renderGallery };
+export {renderGallery};
