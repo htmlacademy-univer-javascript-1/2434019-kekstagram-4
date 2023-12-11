@@ -3,8 +3,8 @@ const MAX_COMMENT_LENGTH = 140;
 const VALID_HASHTAG_SYMBOLS = /^#[a-zA-Z0-9а-яА-Я]{1,19}$/;
 
 const form = document.querySelector('.img-upload__form');
-const commentNode = document.querySelector('.text__description');
-const hashtagsNode = document.querySelector('.text__hashtags');
+const commentElement = document.querySelector('.text__description');
+const hashtagsElement = document.querySelector('.text__hashtags');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -40,9 +40,9 @@ const HashtagsRules = [
   },
 ];
 
-HashtagsRules.forEach((rule, index) => pristine.addValidator(hashtagsNode, rule.check, rule.ERROR, index, true));
+HashtagsRules.forEach((rule, index) => pristine.addValidator(hashtagsElement, rule.check, rule.ERROR, index, true));
 
-pristine.addValidator(commentNode, (comment) => comment.length < MAX_COMMENT_LENGTH, `Комментарий не может быть длиннее ${MAX_COMMENT_LENGTH} символов`, 1, false);
+pristine.addValidator(commentElement, (comment) => comment.length < MAX_COMMENT_LENGTH, `Комментарий не может быть длиннее ${MAX_COMMENT_LENGTH} символов`, 1, false);
 
 const onFormInput = (evt) => {
   if (!pristine.validate()) {

@@ -1,9 +1,9 @@
 import {openBigPicture} from './big-picture.js';
 import {createThumbnails} from './thumbnails.js';
 
-const container = document.querySelector('.pictures');
+const containerElement = document.querySelector('.pictures');
 const renderGallery = (pictures) => {
-  container.addEventListener('click', (evt) => {
+  containerElement.addEventListener('click', (evt) => {
 
     const thumbnail = evt.target.closest('[data-thumbnail-id]');
 
@@ -14,7 +14,7 @@ const renderGallery = (pictures) => {
     openBigPicture(picture);
   });
 
-  createThumbnails(pictures, container);
+  createThumbnails(pictures, containerElement);
 };
 
 export {renderGallery};

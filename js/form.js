@@ -5,7 +5,7 @@ import {initEffect, destroyEffect} from './effects.js';
 
 const bodyElement = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
-const filefield = document.querySelector('.img-upload__input');
+const fileField = document.querySelector('.img-upload__input');
 const overlayElement = document.querySelector('.img-upload__overlay');
 const cancelButtonElement = document.querySelector('.img-upload__cancel');
 const hashtagField = document.querySelector('.text__hashtags');
@@ -49,7 +49,7 @@ function onCancelButtonClick () {
 
 const initEditPopup = () => {
   initEffect();
-  filefield.addEventListener('change', openEditPopup);
+  fileField.addEventListener('change', openEditPopup);
 };
 
 export {initEditPopup};

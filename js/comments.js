@@ -3,13 +3,13 @@ const PART_SHOW_COMMNENT = 5;
 let showComments = 0;
 let comments = [];
 
-const commentContainer = document.querySelector('.social__comments');
+const commentContainerElement = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentsLoaderElement = document.querySelector('.comments-loader');
 const commentsShownElement = document.querySelector('.show-comment-count');
 const totalCommentsElement = document.querySelector('.comments-count');
 
-const createComment = ( {avatar, name, message} ) => {
+const createComment = ({avatar, name, message}) => {
   const comment = commentTemplate.cloneNode(true);
 
   comment.querySelector('.social__picture').src = avatar;
@@ -34,8 +34,8 @@ const renderComments = () => {
     fragment.appendChild(comment);
   }
 
-  commentContainer.innerHTML='';
-  commentContainer.appendChild(fragment);
+  commentContainerElement.innerHTML='';
+  commentContainerElement.appendChild(fragment);
   commentsShownElement.textContent = showComments;
   totalCommentsElement.textContent = comments.length;
 };
