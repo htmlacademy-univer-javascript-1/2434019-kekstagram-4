@@ -1,5 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {onFormInput, refreshPrinstine} from './validator.js';
+import {initScale, destroyScale} from './scale.js';
+import {initEffect, destroyEffect} from './effects.js';
 
 const bodyElement = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -26,6 +28,7 @@ function openEditPopup () {
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.addEventListener('click', onCancelButtonClick);
   form.addEventListener('submit', onFormInput);
+  initScale();
 }
 
 function closeEditPopup () {
@@ -36,12 +39,17 @@ function closeEditPopup () {
   document.removeEventListener('keydown', onDocumentKeydown);
   form.removeEventListener('submit', onFormInput);
   cancelButtonElement.removeEventListener('click', onCancelButtonClick);
+  destroyScale();
+  destroyEffect();
 }
 
 function onCancelButtonClick () {
   closeEditPopup();
 }
 
-export const initEditPopup = () => {
+const initEditPopup = () => {
+  initEffect();
   filefield.addEventListener('change', openEditPopup);
 };
+
+export {initEditPopup};
