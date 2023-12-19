@@ -1,19 +1,22 @@
 import {isEscapeKey} from './util.js';
-import {onFormInput, refreshPrinstine} from './validator.js';
+import {pristine} from './validator.js';
+import {sendData} from './api.js';
+import {showSuccessMessage, showErrorMessage} from './sending.js';
 import {initScale, destroyScale} from './scale.js';
 import {initEffect, destroyEffect} from './effects.js';
 
 const bodyElement = document.querySelector('body');
-const form = document.querySelector('.img-upload__form');
-const fileField = document.querySelector('.img-upload__input');
+const formElement = document.querySelector('.img-upload__form');
+const fileFieldElement = document.querySelector('.img-upload__input');
 const overlayElement = document.querySelector('.img-upload__overlay');
 const cancelButtonElement = document.querySelector('.img-upload__cancel');
-const hashtagField = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
+const hashtagFieldElement = document.querySelector('.text__hashtags');
+const commentFieldElement = document.querySelector('.text__description');
+const submitButtonElement = document.querySelector('.img-upload__submit');
 
 const isFieldFocused = () =>
-  document.activeElement === hashtagField ||
-  document.activeElement === commentField;
+  document.activeElement === hashtagFieldElement ||
+  document.activeElement === commentFieldElement;
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !isFieldFocused()) {
@@ -22,22 +25,57 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикация...'
+};
+
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.IDLE;
+};
+
+const onFormInput = (evt) => {
+  evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(evt.target))
+      .then(() => {
+        closeEditPopup();
+        showSuccessMessage();
+      })
+      .catch(showErrorMessage())
+      .finally(unblockSubmitButton);
+  }
+};
+
+const refreshPrinstine = () => {
+  pristine.reset();
+};
+
 function openEditPopup () {
   overlayElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButtonElement.addEventListener('click', onCancelButtonClick);
-  form.addEventListener('submit', onFormInput);
+  formElement.addEventListener('submit', onFormInput);
   initScale();
 }
 
 function closeEditPopup () {
-  form.reset();
+  formElement.reset();
   refreshPrinstine();
   overlayElement.classList.add('hidden');
   bodyElement.classList.add('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  form.removeEventListener('submit', onFormInput);
+  formElement.removeEventListener('submit', onFormInput);
   cancelButtonElement.removeEventListener('click', onCancelButtonClick);
   destroyScale();
   destroyEffect();
@@ -49,7 +87,7 @@ function onCancelButtonClick () {
 
 const initEditPopup = () => {
   initEffect();
-  fileField.addEventListener('change', openEditPopup);
+  fileFieldElement.addEventListener('change', openEditPopup);
 };
 
-export {initEditPopup};
+export {initEditPopup, onDocumentKeydown};

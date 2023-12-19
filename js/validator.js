@@ -44,14 +44,4 @@ HashtagsRules.forEach((rule, index) => pristine.addValidator(hashtagsElement, ru
 
 pristine.addValidator(commentElement, (comment) => comment.length < MAX_COMMENT_LENGTH, `Комментарий не может быть длиннее ${MAX_COMMENT_LENGTH} символов`, 1, false);
 
-const onFormInput = (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-};
-
-const refreshPrinstine = () => {
-  pristine.reset();
-};
-
-export {onFormInput, refreshPrinstine};
+export {pristine};
