@@ -13,13 +13,14 @@ const cancelButtonElement = document.querySelector('.img-upload__cancel');
 const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('.img-upload__submit');
+const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
 
 const isFieldFocused = () =>
   document.activeElement === hashtagFieldElement ||
   document.activeElement === commentFieldElement;
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isFieldFocused()) {
+  if (isEscapeKey(evt) && !isFieldFocused() && !errorMessageElement.classList.contains('open-error')) {
     evt.preventDefault();
     closeEditPopup();
   }
@@ -52,7 +53,6 @@ const onFormInput = (evt) => {
         showSuccessMessage();
       })
       .catch(() => {
-        closeEditPopup();
         showErrorMessage();
       })
       .finally(unblockSubmitButton);
