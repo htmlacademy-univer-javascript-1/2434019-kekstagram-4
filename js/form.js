@@ -51,13 +51,12 @@ const onFormInput = (evt) => {
         closeEditPopup();
         showSuccessMessage();
       })
-      .catch(showErrorMessage())
+      .catch(() => {
+        closeEditPopup();
+        showErrorMessage();
+      })
       .finally(unblockSubmitButton);
   }
-};
-
-const refreshPrinstine = () => {
-  pristine.reset();
 };
 
 function openEditPopup () {
@@ -71,9 +70,9 @@ function openEditPopup () {
 
 function closeEditPopup () {
   formElement.reset();
-  refreshPrinstine();
+  pristine.reset();
   overlayElement.classList.add('hidden');
-  bodyElement.classList.add('modal-open');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   formElement.removeEventListener('submit', onFormInput);
   cancelButtonElement.removeEventListener('click', onCancelButtonClick);

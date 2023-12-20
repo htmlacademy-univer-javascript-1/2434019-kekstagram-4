@@ -1,8 +1,6 @@
 import {isEscapeKey} from './util.js';
-import {onDocumentKeydown as onDocumentKeydownForm} from './form.js';
 
 const bodyElement = document.querySelector('body');
-const overlayElement = document.querySelector('.img-upload__overlay');
 const successMessageElement = document.querySelector('#success').content.querySelector('.success');
 const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
 const successButtonElement = successMessageElement.querySelector('.success__button');
@@ -27,14 +25,12 @@ function closeMessage () {
   const messageElement = bodyElement.querySelector('.success') || bodyElement.querySelector('.error');
   messageElement.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('keydown', onDocumentKeydownForm);
   bodyElement.removeEventListener('click', onBodyClick);
 }
 
 const showMessage = (messageElement, buttonElement) => {
-  overlayElement.append(messageElement);
+  bodyElement.append(messageElement);
   document.addEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('keydown', onDocumentKeydownForm);
   bodyElement.addEventListener('click', onBodyClick);
   buttonElement.addEventListener('click', closeMessage);
 };
