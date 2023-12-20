@@ -89,4 +89,4 @@ const initEditPopup = () => {
   fileFieldElement.addEventListener('change', openEditPopup);
 };
 
-export {initEditPopup, onDocumentKeydown};
+export {initEditPopup};
