@@ -14,7 +14,7 @@ const renderGallery = (pictures) => {
     openBigPicture(picture);
   });
 
-  createThumbnails(pictures, containerElement);
+  createThumbnails(pictures);
 };
 
 export {renderGallery};
