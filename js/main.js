@@ -2,7 +2,7 @@ import {renderGallery} from './gallery.js';
 import {initEditPopup} from './form.js';
 import {getData} from './api.js';
 import {showAlert} from './util.js';
-import {initFilters} from './sort.js';
+import {initFilters} from './filter.js';
 import { debounce } from './util.js';
 
 initEditPopup();

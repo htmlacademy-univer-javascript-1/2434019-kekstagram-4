@@ -5,6 +5,8 @@ import {showSuccessMessage, showErrorMessage} from './sending.js';
 import {initScale, destroyScale} from './scale.js';
 import {initEffect, destroyEffect} from './effects.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const bodyElement = document.querySelector('body');
 const formElement = document.querySelector('.img-upload__form');
 const fileFieldElement = document.querySelector('.img-upload__input');
@@ -14,6 +16,27 @@ const hashtagFieldElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('.img-upload__submit');
 const errorMessageElement = document.querySelector('#error').content.querySelector('.error');
+const fileChooserElement = document.querySelector('.img-upload__start input[type=file]');
+const previewElement = document.querySelector('.img-upload__preview img');
+const effectPreviewsElement = document.querySelectorAll('.effects__preview');
+
+const onFileChooserChanged = () => {
+  const file = fileChooserElement.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    const newPictureUrl = URL.createObjectURL(file);
+    previewElement.src = newPictureUrl;
+
+    effectPreviewsElement.forEach((effect) => {
+      effect.style.backgroundImage = `url(${newPictureUrl})`;
+    });
+  }
+};
+
+fileChooserElement.addEventListener('change', onFileChooserChanged);
 
 const isFieldFocused = () =>
   document.activeElement === hashtagFieldElement ||
